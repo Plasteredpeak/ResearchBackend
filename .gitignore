@@ -1,0 +1,19 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore environment-specific files
+.env
+.env.*
+!.env.example
+
+# Ignore log files
+*.log
+
+# Ignore build output or compiled files
+dist/
+build/
+out/
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
