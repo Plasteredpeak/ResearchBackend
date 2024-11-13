@@ -15,9 +15,11 @@ app.use(cookieParser());
 
 // Import routes
 const userRoutes = require("./src/routes/userRoutes");
+const listRoutes = require("./src/routes/listRoutes");
 
 // Use routes
 app.use("/api/users", userRoutes);
+app.use("/api/list", listRoutes);
 
 //add / route
 app.get("/", (req, res) => {

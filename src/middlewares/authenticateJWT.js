@@ -1,21 +1,24 @@
 const jwt = require("jsonwebtoken");
+const apiResponse = require("../utils/apiResponse");
 
 const authenticateJWT = (req, res, next) => {
-  const token = req.cookies.jwt;
+  // Get the token from Authorization header
+  const authHeader = req.headers.authorization;
 
-  if (token) {
+  if (authHeader) {
+    const token = authHeader.split(" ")[1]; // Splitting "Bearer <token>" to get the token
+
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
         // Token verification failed
-        return res.status(401).json({ error: "Invalid token" });
+        return apiResponse.fail(res, "invalid token", 401);
       }
 
       req.userId = decoded.userId;
       next();
     });
   } else {
-    // Token is missing
-    res.status(401).json({ error: "Unauthorized" });
+    return apiResponse.fail(res, "token not provided", 401);
   }
 };
 
